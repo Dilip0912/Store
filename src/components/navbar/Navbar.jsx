@@ -51,10 +51,11 @@ export default function Navbar() {
                   </button>
                 </div>
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  
+                <div className="flow-root">
                   <Link to={'/allproducts'} className="text-sm font-medium text-gray-900 " style={{ color: theme === 'dark' ? 'white' : '', }}>
                     All Products
                   </Link>
+                </div>
                   <div className="flow-root">
                     <Link to={'/order'} style={{ color: theme === 'dark' ? 'white' : '', }} className="-m-2 block p-2 font-medium text-gray-900">
                       Order
