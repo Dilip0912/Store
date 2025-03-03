@@ -9,6 +9,7 @@ import Signup from "./pages/registration/Signup";
 import Cart from "./pages/cart/Cart";
 import NoPage from "./pages/nopage/NoPage";
 import ProductInfo from "./pages/productinfo/ProductInfo";
+import Dashboard from "./pages/Admin/dashboard/Dashboard";
 
 function App() {
   return (
@@ -17,12 +18,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/cart" element={<Cart/> } />
-          <Route path="/dashboard" element={<Home />} />
-          <Route path="/login" element={<Login/> } />
-          <Route path="/signup" element={<Signup/> } />
-          <Route path="/productinfo/:id" element={<ProductInfo/> } />
-          <Route path="/*" element={<NoPage/> } />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/productinfo/:id" element={<ProductInfo />} />
+          <Route path="/*" element={<NoPage />} />
         </Routes>
       </Router>
     </ContextProvider>
