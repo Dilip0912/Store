@@ -12,7 +12,7 @@ import ProductInfo from "./pages/productinfo/ProductInfo";
 import Dashboard from "./pages/Admin/dashboard/Dashboard";
 import AddProduct from "./pages/Admin/pages/AddProduct";
 import UpdateProduct from "./pages/Admin/pages/UpdateProduct";
-import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
@@ -32,6 +32,7 @@ function App() {
           <Route path="/updateproduct" element={<UpdateProduct/> } />
           <Route path="/*" element={<NoPage />} />
         </Routes>
+        <ToastContainer />
       </Router>
     </ContextProvider>
   );

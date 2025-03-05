@@ -15,8 +15,10 @@ export const ContextProvider=({children})=>{
             document.body.style.backgroundColor="white"
         }
     }
+
+    const [loading,setLoading]=useState(false);
     return(
-        <Context.Provider value={{theme,toggleTheme}}>
+        <Context.Provider value={{theme,toggleTheme,loading,setLoading}}>
             {children}
         </Context.Provider >
     )
