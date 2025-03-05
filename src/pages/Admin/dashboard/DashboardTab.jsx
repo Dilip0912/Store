@@ -4,6 +4,7 @@ import Context from "../../../context/Context";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { FaUser, FaCartPlus } from "react-icons/fa";
 import { AiFillShopping, AiFillPlusCircle, AiFillDelete } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 function DashboardTab() {
   const context = useContext(Context);
@@ -16,6 +17,11 @@ function DashboardTab() {
 
   function openModal() {
     setIsOpen(true);
+  }
+
+  const navigate=useNavigate()
+  const add=()=>{
+    navigate("/addproduct")
   }
   return (
     <>
@@ -66,6 +72,7 @@ function DashboardTab() {
                 </h1>
                 <div className=" flex justify-end">
                   <button
+                    onClick={add}
                     type="button"
                     className="focus:outline-none text-white bg-pink-600 shadow-[inset_0_0_10px_rgba(0,0,0,0.6)] border hover:bg-pink-700 outline-0 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
                     style={{
