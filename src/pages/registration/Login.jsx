@@ -1,15 +1,41 @@
-import { Link } from 'react-router-dom'
-
+import { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import Context from '../../context/Context'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase/FirebaseConfig';
+import { toast } from 'react-toastify';
+import Loader from '../../components/loader/Loader';
 function Login() {
-   
+   const {loading,setLoading}=useContext(Context)
+   const [email,setEmail]=useState("");
+   const [password,setPassword]=useState("");
+   const navigate=useNavigate();
+
+   const login=async ()=>{
+    setLoading(true)
+    try{
+        const result=await signInWithEmailAndPassword(auth,email,password)
+        toast.success("Login successfull")
+        localStorage.setItem("user",JSON.stringify(result))
+        setLoading(false)
+        navigate("/")
+    }
+    catch(err){
+        setLoading(false)
+        toast.error("Wrong Credential")
+    }
+   }
     return (
         <div className=' flex justify-center items-center h-screen'>
+            {loading && <Loader/>}
             <div className=' bg-gray-800 px-10 py-10 rounded-xl '>
                 <div className="">
                     <h1 className='text-center text-white text-xl mb-4 font-bold'>Login</h1>
                 </div>
                 <div>
                     <input type="email"
+                        value={email}
+                        onChange={e=>setEmail(e.target.value)}
                         name='email'
                         className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         placeholder='Email'
@@ -17,6 +43,8 @@ function Login() {
                 </div>
                 <div>
                     <input
+                        value={password}
+                        onChange={e=>setPassword(e.target.value)}
                         type="password"
                         className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         placeholder='Password'
@@ -24,6 +52,7 @@ function Login() {
                 </div>
                 <div className=' flex justify-center mb-3'>
                     <button
+                        onClick={login}
                         className=' bg-yellow-500 w-full text-black font-bold  px-2 py-2 rounded-lg'>
                         Login
                     </button>
