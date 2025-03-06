@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import Context from '../../../context/Context'
+import { useNavigate } from 'react-router-dom'
 
 function AddProduct() {
     const {products,setProducts,addProduct}=useContext(Context)
+    const navigate=useNavigate();
     
     return (
         <div>

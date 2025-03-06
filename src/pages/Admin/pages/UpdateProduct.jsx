@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import Context from '../../../context/Context'
 
 function UpdateProduct() {
+    const {products,updateProduct,setProducts}=useContext(Context)
+    // console.log(products);
     return (
         <div>
             <div className=' flex justify-center items-center h-screen'>
@@ -10,6 +13,8 @@ function UpdateProduct() {
                     </div>
                     <div>
                         <input type="text"
+                            value={products.title}
+                            onChange={e=>setProducts({...products,title:e.currentTarget.value})}
                             name='title'
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product title'
@@ -17,6 +22,8 @@ function UpdateProduct() {
                     </div>
                     <div>
                         <input type="text"
+                            value={products.price}
+                            onChange={e=>setProducts({...products,price:e.currentTarget.value})}
                             name='price'
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product price'
@@ -24,6 +31,8 @@ function UpdateProduct() {
                     </div>
                     <div>
                         <input type="text"
+                            value={products.imageUrl}
+                            onChange={e=>setProducts({...products,imageUrl:e.currentTarget.value})}
                             name='imageurl'
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product imageUrl'
@@ -31,6 +40,8 @@ function UpdateProduct() {
                     </div>
                     <div>
                         <input type="text"
+                            value={products.category}
+                            onChange={e=>setProducts({...products,category:e.currentTarget.value})}
                             name='category'
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product category'
@@ -38,6 +49,8 @@ function UpdateProduct() {
                     </div>
                     <div>
                        <textarea cols="30" rows="10" name='title'
+                            value={products.description}
+                            onChange={e=>setProducts({...products,description:e.currentTarget.value})}
                             className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product title'>
 
@@ -45,6 +58,7 @@ function UpdateProduct() {
                     </div>
                     <div className=' flex justify-center mb-3'>
                         <button
+                            onClick={()=>updateProduct(products.id)}
                             className=' bg-yellow-500 w-full text-black font-bold  px-2 py-2 rounded-lg'>
                             Update Product
                         </button>
