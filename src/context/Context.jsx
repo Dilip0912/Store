@@ -17,7 +17,6 @@ import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { fireDB } from "../firebase/FirebaseConfig";
 
-
 const Context = createContext();
 export default Context;
 
@@ -34,7 +33,6 @@ export const ContextProvider = ({ children }) => {
   };
 
   const [loading, setLoading] = useState(false);
-
   const [products, setProducts] = useState({
     title: null,
     price: null,
@@ -66,9 +64,9 @@ export const ContextProvider = ({ children }) => {
       await addDoc(productRef, products);
       toast.success("Successfully Added");
       getProductData();
-      setTimeout(()=>{
-        window.location.href="/dashboard"
-      },500)
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 500);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -79,6 +77,7 @@ export const ContextProvider = ({ children }) => {
   const [product, setProduct] = useState([]);
 
   const getProductData = async () => {
+    setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(fireDB, "Products"));
       const productList = querySnapshot.docs.map((doc) => ({
@@ -86,41 +85,91 @@ export const ContextProvider = ({ children }) => {
         ...doc.data(),
       }));
       setProduct(productList);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
-  const editHandle=(item)=>{
-    setProducts(item)
-  }
+  const editHandle = (item) => {
+    setProducts(item);
+  };
   // console.log(products);
-  
-  const updateProduct=async (id)=>{
+
+  const updateProduct = async (id) => {
     // console.log(products);
     // console.log(id);
 
-    const docRef=doc(fireDB,"Products",id)  //Collection name must be same(capital p)
+    const docRef = doc(fireDB, "Products", id); //Collection name must be same(capital p)
 
-    await updateDoc(docRef,products)
+    await updateDoc(docRef, products);
     // await setDoc(doc(fireDB,"Products",products.id),products)
-    toast.success("Update Successfull")
-    getProductData()
-    setTimeout(()=>{
-      window.location.href="/dashboard"
-    },1000)
-  }
+    toast.success("Update Successfull");
+    getProductData();
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 1000);
+  };
 
-  const deleteProduct=async (id)=>{
-    const docRef=doc(fireDB,"Products",id)
+  const deleteProduct = async (id) => {
+    const docRef = doc(fireDB, "Products", id);
     await deleteDoc(docRef);
     getProductData();
-  }
+  };
 
-useEffect(() => {
+  const [order, setOrder] = useState([]);
+  const getOrderData = async () => {
+    setLoading(true)
+    try {
+      const querySnapshot = await getDocs(collection(fireDB, "orders"));
+      const result = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      // console.log(result)
+      setOrder(result);
+      setLoading(false)
+      // console.log(order)
+    } catch (err) {
+      console.log(err);
+      setLoading(false)
+    }
+  };
+  
+  const [ user, setUser ] = useState([]);
+  const getUserData = async () => {
+    setLoading(true);
+    try {
+      const querySnapshot = await getDocs(collection(fireDB, "users"));
+      const result = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      // console.log(result)
+      setUser(result)
+      setLoading(false)
+      
+      
+    } catch (err) {
+      console.log(err)
+      setLoading(false)
+    }
+  };
+
+  useEffect(() => {
     getProductData();
-}, []);
-// console.log(product);
+    getOrderData();
+    getUserData();
+    // console.log(order)
+  }, []);
+
+  // useEffect(()=>{
+  //   console.log(order)
+  // },[order])
+
+  // console.log(product);
 
   return (
     <Context.Provider
@@ -135,7 +184,9 @@ useEffect(() => {
         product,
         editHandle,
         updateProduct,
-        deleteProduct
+        deleteProduct,
+        order,
+        user
       }}
     >
       {children}

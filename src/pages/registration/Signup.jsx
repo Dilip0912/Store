@@ -30,7 +30,8 @@ function Signup() {
       const user={
         name:name,
         uid:users.user.uid,
-        email:users.user.email
+        email:users.user.email,
+        date:Date.now(),
       }
       // console.log(user);
 
