@@ -10,7 +10,7 @@ function DashboardTab() {
   const context = useContext(Context);
   const { theme, product, editHandle, deleteProduct, order, user } = context;
   // console.log(order);
-  console.log(user);
+  // console.log(user);
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);

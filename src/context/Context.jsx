@@ -120,7 +120,7 @@ export const ContextProvider = ({ children }) => {
 
   const [order, setOrder] = useState([]);
   const getOrderData = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(fireDB, "orders"));
       const result = querySnapshot.docs.map((doc) => ({
@@ -130,15 +130,15 @@ export const ContextProvider = ({ children }) => {
 
       // console.log(result)
       setOrder(result);
-      setLoading(false)
+      setLoading(false);
       // console.log(order)
     } catch (err) {
       console.log(err);
-      setLoading(false)
+      setLoading(false);
     }
   };
-  
-  const [ user, setUser ] = useState([]);
+
+  const [user, setUser] = useState([]);
   const getUserData = async () => {
     setLoading(true);
     try {
@@ -148,13 +148,11 @@ export const ContextProvider = ({ children }) => {
         ...doc.data(),
       }));
       // console.log(result)
-      setUser(result)
-      setLoading(false)
-      
-      
+      setUser(result);
+      setLoading(false);
     } catch (err) {
-      console.log(err)
-      setLoading(false)
+      console.log(err);
+      setLoading(false);
     }
   };
 
@@ -169,7 +167,14 @@ export const ContextProvider = ({ children }) => {
   //   console.log(order)
   // },[order])
 
-  // console.log(product);
+  const [searchKey, setSearchKey] = useState("");
+  const [filterType, setFilterType] = useState("");
+
+  // useEffect(()=>{
+  //   console.log(searchKey)
+  // },[searchKey])
+
+  // console.log(searchKey)
 
   return (
     <Context.Provider
@@ -186,7 +191,10 @@ export const ContextProvider = ({ children }) => {
         updateProduct,
         deleteProduct,
         order,
-        user
+        user,
+        searchKey,
+        setSearchKey,
+        filterType,setFilterType
       }}
     >
       {children}
