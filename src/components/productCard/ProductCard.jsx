@@ -8,7 +8,7 @@ function ProductCard() {
   // const {searchKey}=useContext(Context);
 
   // console.log(searchKey);
-  console.log(product);
+  // console.log(product);
   // const Aproduct = product.filter((obj) => {
   //   return obj.title.toLowerCase().includes(searchKey);
   //   // console.log(searchKey)
@@ -37,16 +37,16 @@ function ProductCard() {
         <div className="flex flex-wrap -m-4">
           {product
             .filter((obj) => {
-              console.log(obj.category.toLowerCase())
+              // console.log(obj.category.toLowerCase())
               return obj.category.toLowerCase().includes(searchKey);
               // console.log(searchKey)
               // console.log(obj.title.toLowerCase().includes(searchKey));
             })
             .map((item, index) => {
               // console.log(item);
-              const { title, price, description, imageUrl } = item;
+              const { title, price, description, imageUrl,id } = item;
               return (
-                <div key={index} className="p-4 md:w-1/4  drop-shadow-lg ">
+                <div  onClick={()=>window.location.href=`/productinfo/${id}`} key={index} className="p-4 md:w-1/4  drop-shadow-lg ">
                   <div
                     className="h-full border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out    border-gray-200 border-opacity-60 rounded-2xl overflow-hidden"
                     style={{
